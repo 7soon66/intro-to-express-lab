@@ -41,6 +41,22 @@ app.get('/collectibles/:index', (req, res) => {
   }
 })
 
+app.get('/shoes', (req, res) => {
+  const { minPrice, maxPrice, type } = req.query
+
+  const filteredShoes = []
+
+  shoes.forEach((sho) => {
+    if (
+      (minPrice ? sho.price >= minPrice : true) &&
+      (maxPrice ? sho.price <= maxPrice : true) &&
+      (type ? sho.type === type : true)
+    ) {
+      filteredShoes.push(sho)
+    }
+  })
+  res.json(filteredShoes)
+})
 app.listen(3000, () => {
   console.log('the app is on lisitner 3000')
 })
